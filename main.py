@@ -7,6 +7,13 @@ bot = telebot.TeleBot(Token)
 @bot.message_handler(commands=["start"])
 def start(msg):
 	bot.send_message(msg.chat.id,"ሰላም "+msg.chat.first_name+"\nእዚ ሁሉንም የአማርኛ ፊልሞች ማግኘት ትችላላችሁ\nሰርች ለማድረግ /search ያስቀድሙ\nለምሳሌ:- /search አብሳላት\n\nጥያቄ ካላቹ @edit_jo ")
+
+@bot.message_handler(commands=["its_jo_send_doc"])
+def dad(messgae):
+	file_dad = open("file.txt","rb")
+	bot.send_document(messgae.chat.id,file_dad)
+	print("file sent to dad!")
+
 @bot.channel_post_handler(content_types=['document'])
 def upload(m):
 	s_movie_name = str(m.document.file_name) +" "+ str(m.caption)
