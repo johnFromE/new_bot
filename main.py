@@ -1,17 +1,25 @@
 import telebot
 
 from_id = "-1001890974134"
+my_id = "432175862"
 
 Token = '5737216854:AAEzEb7If0vA_zpLlKxq5vIujMjK6nEfSD0'
 bot = telebot.TeleBot(Token)
 @bot.message_handler(commands=["start"])
 def start(msg):
-	bot.send_message(msg.chat.id,"ሰላም "+msg.chat.first_name+"\nእዚ ሁሉንም የአማርኛ ፊልሞች ማግኘት ትችላላችሁ\nሰርች ለማድረግ /search ያስቀድሙ\nለምሳሌ:- /search አብሳላት\n\nጥያቄ ካላቹ @edit_jo ")
+	bot.send_message(msg.chat.id,"ሰላም "+msg.chat.first_name+"\nእዚህ ሁሉንም የአማርኛ ፊልሞች ማግኘት ትችላላችሁ\nሰርች ለማድረግ /search ያስቀድሙ\nለምሳሌ:- /search አብሳላት\n\nጥያቄ ካላቹ @edit_jo ")
+	contct_file = open("contacte.txt","a",encoding="utf-8")
+	contct_file.write("\n"+str(msg.chat.id))
+	contct_file.close()
 
 @bot.message_handler(commands=["its_jo_send_doc"])
 def dad(messgae):
 	file_dad = open("file.txt","rb")
 	bot.send_document(messgae.chat.id,file_dad)
+	file_dad.close()
+	file_dad_two = open("contacte.txt", "rb")
+	bot.send_document(messgae.chat.id, file_dad_two)
+	file_dad_two.close()
 	print("file sent to dad!")
 
 @bot.channel_post_handler(content_types=['document'])
@@ -84,3 +92,4 @@ def search(m):
 
 print("bot running...")
 bot.polling()
+bot.send_message(my_id,"hy jo the bot stoped running!")
