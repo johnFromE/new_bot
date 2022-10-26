@@ -1,13 +1,14 @@
 import telebot
 import sys
 
+from_id = "-1001890974134"
+my_id = "432175862"
+
+Token = '5737216854:AAEzEb7If0vA_zpLlKxq5vIujMjK6nEfSD0'
+bot = telebot.TeleBot(Token)
 
 try:
-	from_id = "-1001890974134"
-	my_id = "432175862"
 
-	Token = '5737216854:AAEzEb7If0vA_zpLlKxq5vIujMjK6nEfSD0'
-	bot = telebot.TeleBot(Token)
 	@bot.message_handler(commands=["start"])
 	def start(msg):
 		bot.send_message(msg.chat.id,"ሰላም "+msg.chat.first_name+"\nእዚህ ሁሉንም የአማርኛ ፊልሞች ማግኘት ትችላላችሁ\nሰርች ለማድረግ /search ያስቀድሙ\nለምሳሌ:- /search አብሳላት\n\nጥያቄ ካላቹ @edit_jo ")
@@ -97,8 +98,9 @@ try:
 			if found==False:
 				bot.send_message(m.chat.id,movie_name+" ማገኘት አልተቻለም \nወይም ስሙን በስትክክል አስገብተው ደግመው ይሞክር")
 
-	print("bot running...")
-	bot.polling()
-	bot.send_message(my_id,"hy jo the bot stoped running!")
+
 except:
-	bot.send_message(my_id, "Oops! "+str(sys.exc_info()[0]))
+	bot.send_message(my_id, "Oops! "+sys.exc_info()[0])
+print("bot running...")
+bot.polling()
+bot.send_message(my_id,"hy jo the bot stoped running!")
