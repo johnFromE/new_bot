@@ -101,4 +101,4 @@ try:
 	bot.polling()
 	bot.send_message(my_id,"hy jo the bot stoped running!")
 except:
-	bot.send_message(my_id, "Oops! "+sys.exc_info()[0])
+	bot.send_message(my_id, "Oops! "+str(sys.exc_info()[0]))
