@@ -1,5 +1,6 @@
 import telebot
 import sys
+from filter import fl
 
 from_id = "-1001890974134"
 my_id = "432175862"
@@ -29,17 +30,7 @@ try:
 	@bot.channel_post_handler(content_types=['document'])
 	def upload(m):
 		s_movie_name = str(m.document.file_name) +" "+ str(m.caption)
-		s_movie_name = s_movie_name.replace(".mp4","")
-		s_movie_name = s_movie_name.replace(".mkv","")
-		s_movie_name = s_movie_name.replace(".avi","")
-		s_movie_name = s_movie_name.replace("\n", " ")
-		s_movie_name = s_movie_name.replace(":", " ")
-		s_movie_name = s_movie_name.replace("_", " ")
-		s_movie_name = s_movie_name.replace("-", " ")
-		s_movie_name = s_movie_name.replace("#", " ")
-		s_movie_name = s_movie_name.replace("@", " ")
-		s_movie_name = s_movie_name.replace("/", " ")
-		s_movie_name = s_movie_name.replace("  ", " ")
+		s_movie_name = fl.filter_word(s_movie_name)
 
 		file = open("file.txt", 'a', encoding="utf-8")
 		file.write("\n" + str(m.message_id) + ":" + s_movie_name)
@@ -48,17 +39,7 @@ try:
 	@bot.channel_post_handler(content_types=['video'])
 	def upload(m):
 		s_movie_name = str(m.video.file_name) +" "+ str(m.caption)
-		s_movie_name = s_movie_name.replace(".mp4", "")
-		s_movie_name = s_movie_name.replace(".mkv", "")
-		s_movie_name = s_movie_name.replace(".avi", "")
-		s_movie_name = s_movie_name.replace("\n"," ")
-		s_movie_name = s_movie_name.replace(":", " ")
-		s_movie_name = s_movie_name.replace("_", " ")
-		s_movie_name = s_movie_name.replace("-", " ")
-		s_movie_name = s_movie_name.replace("#", " ")
-		s_movie_name = s_movie_name.replace("@", " ")
-		s_movie_name = s_movie_name.replace("/", " ")
-		s_movie_name = s_movie_name.replace("  ", " ")
+		s_movie_name = fl.filter_word(s_movie_name)
 
 		file = open("file.txt", 'a', encoding="utf-8")
 		file.write("\n"+str(m.message_id)+":"+s_movie_name)
@@ -90,7 +71,9 @@ try:
 				if "false" in bool:
 					found=False
 				else:
+					print(bool)
 					found=True
+					#bot.send_document(chat_id=m.chat.id, from_chat_id=from_id, message_id=int(movie_id))
 					bot.forward_message(chat_id=m.chat.id, from_chat_id=from_id, message_id=int(movie_id))
 					break
 
