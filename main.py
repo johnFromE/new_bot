@@ -37,29 +37,30 @@ def command(bot,message):
         found = False
 
         for w in word_list:
-            word_splitd = w.split(":")
-            movie_id = word_splitd[0]
-            movie_title = word_splitd[1].split(" ")
-            bool = []
-            for mn in movie_name.split(" "):
-                if mn in movie_title:
-                    bool.append("true")
+            if w != "":
+                word_splitd = w.split(":")
+                movie_id = word_splitd[0]
+                movie_title = word_splitd[1].split(" ")
+                bool = []
+                for mn in movie_name.split(" "):
+                    if mn in movie_title:
+                        bool.append("true")
+                    else:
+                        bool.append("false")
+    
+                if "false" in bool:
+                    found = False
                 else:
-                    bool.append("false")
-
-            if "false" in bool:
-                found = False
-            else:
-                print(bool)
-                found = True
-                # bot.forward_message(chat_id=m.chat.id, from_chat_id=from_id, message_id=int(movie_id))
-                msg = bot.get_messages(-1001890974134, int(movie_id))
-                msg.copy(  # copy() so there's no "forwarded from" header
-                    chat_id=message.chat.id,  # the channel you want to post to
-                    caption="Amharic Film Bot\n\nhttps://t.me/amharic_film_bot\nhttps://t.me/amharic_film_bot"
-                    # mentions the posting user in the new message
-                )
-                break
+                    print(bool)
+                    found = True
+                    # bot.forward_message(chat_id=m.chat.id, from_chat_id=from_id, message_id=int(movie_id))
+                    msg = bot.get_messages(-1001890974134, int(movie_id))
+                    msg.copy(  # copy() so there's no "forwarded from" header
+                        chat_id=message.chat.id,  # the channel you want to post to
+                        caption="Amharic Film Bot\n\nhttps://t.me/amharic_film_bot\nhttps://t.me/amharic_film_bot"
+                        # mentions the posting user in the new message
+                    )
+                    break
 
         if found == False:
             bot.send_message(message.chat.id, movie_name + " ማገኘት አልተቻለም \nወይም ስሙን በስትክክል አስገብተው ደግመው ይሞክር")
