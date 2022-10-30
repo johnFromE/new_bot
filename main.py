@@ -9,6 +9,7 @@ def upload_doc(bot, m):
     s_movie_name = str(m.document.file_name) +" "+ str(m.caption)
     s_movie_name = fl.filter_word(s_movie_name)
 
+    print(s_movie_name)
     file = open("file.txt", 'a', encoding="utf-8")
     file.write("\n" + str(m.id) + ":" + s_movie_name)
     file.close()
@@ -18,6 +19,7 @@ def upload_vid(bot,m):
     s_movie_name = str(m.video.file_name) + " " + str(m.caption)
     s_movie_name = fl.filter_word(s_movie_name)
 
+    print(s_movie_name)
     file = open("file.txt", 'a', encoding="utf-8")
     file.write("\n" + str(m.id) + ":" + s_movie_name)
     file.close()
