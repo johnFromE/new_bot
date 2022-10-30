@@ -11,10 +11,7 @@ class fl:
         movie_eng = ["adey","eregnaye","besintu","askuala"]             #list of english and amharic word
         movie_amh = ["አደይ","እረኛዬ","በስንቱ","አስኳላ"]
 
-
-        splited_two = word.split(":")
-        movie_n_id = splited_two[0]
-        movie_n_name = splited_two[1].split(" ")
+        movie_n_name = word.split(" ")
         m_n = " ".join(movie_n_name)
 
         #algortithm that add english name to amhric name of movie title
@@ -23,5 +20,3 @@ class fl:
                 m_n =  movie_eng[num] +" "+ m_n
 
         return m_n
-
-
