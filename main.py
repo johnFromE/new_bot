@@ -100,4 +100,6 @@ def dad(bot,messgae):
 @bot.on_message()
 def message(bot,msg):
     bot.send_message(msg.chat.id,msg.text+" የማይታወቅ ኮማንድ")
+
+print("bot running...")
 bot.run()
