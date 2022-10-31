@@ -1,28 +1,31 @@
 from pyrogram import Client,filters
 from random_movie import choose_movie
 from filter import fl
+from time import sleep
 
 bot = Client("amhric_bot", api_id=20453853, api_hash="fe2593c973640679de717af61e1f805c",bot_token="5737216854:AAEzEb7If0vA_zpLlKxq5vIujMjK6nEfSD0")
 
-@bot.on_message(filters.document)
+@bot.on_message(filters.document and filters.channel)
 def upload_doc(bot, m):
-    s_movie_name = str(m.document.file_name) +" "+ str(m.caption)
+    s_movie_name = str(m.caption) +" "+ str(m.text)
     s_movie_name = fl.filter_word(s_movie_name)
 
     print(s_movie_name)
     file = open("file.txt", 'a', encoding="utf-8")
     file.write("\n" + str(m.id) + ":" + s_movie_name)
     file.close()
+    sleep(0.5)
 
-@bot.on_message(filters.video)
+@bot.on_message(filters.video and filters.channel)
 def upload_vid(bot,m):
-    s_movie_name = str(m.video.file_name) + " " + str(m.caption)
+    s_movie_name = str(m.caption)+" "+str(m.text)
     s_movie_name = fl.filter_word(s_movie_name)
 
     print(s_movie_name)
     file = open("file.txt", 'a', encoding="utf-8")
     file.write("\n" + str(m.id) + ":" + s_movie_name)
     file.close()
+    sleep(0.5)
 
 @bot.on_message(filters.command('search'))
 def command(bot,message):
@@ -47,7 +50,7 @@ def command(bot,message):
                         bool.append("true")
                     else:
                         bool.append("false")
-    
+
                 if "false" in bool:
                     found = False
                 else:
@@ -55,9 +58,10 @@ def command(bot,message):
                     found = True
                     # bot.forward_message(chat_id=m.chat.id, from_chat_id=from_id, message_id=int(movie_id))
                     msg = bot.get_messages(-1001890974134, int(movie_id))
+                    final_movie_name = word_splitd[1].split("=")[0]
                     msg.copy(  # copy() so there's no "forwarded from" header
                         chat_id=message.chat.id,  # the channel you want to post to
-                        caption="Amharic Film Bot\n\nhttps://t.me/amharic_film_bot\nhttps://t.me/amharic_film_bot"
+                        caption=final_movie_name+"\n\nhttps://t.me/amharic_film_bot\nhttps://t.me/amharic_film_bot"
                         # mentions the posting user in the new message
                     )
                     break
@@ -102,7 +106,7 @@ def dad(bot,messgae):
     file_dad_two.close()
 @bot.on_message()
 def message(bot,msg):
-    bot.send_message(msg.chat.id,msg.text+" የማይታወቅ ኮማንድ")
+    bot.send_message(msg.chat.id," የማይታወቅ ኮማንድ")
 
 print("bot running...")
 bot.run()
